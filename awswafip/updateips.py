@@ -1,6 +1,6 @@
-from aws_actions import *
-from file_actions import *
-from __init__ import *
+from .aws_actions import *
+from .file_actions import *
+#from __init__ import *
 global client
 
 def get_parameters():
@@ -16,7 +16,7 @@ def get_parameters():
     try:
         param_new_ipset = input('Is it a new IpSet? (Y/N)\n').upper()
         if param_new_ipset == 'Y':
-            param_ipset = input('Enter the IPSet name to be created:\n')
+            param_ipset = str(input('Enter the IPSet name to be created:\n'))
         elif param_new_ipset == 'N':
             param_ipset = input('Enter the name of the IPSet you want to update:\n')
         else:
@@ -64,7 +64,7 @@ def get_parameters():
     return param_new_ipset, param_ipset, param_global_regional, param_region, param_action, param_file
 
 
-def check_limits(list_ips, action):
+def limits_verifier(list_ips, action):
     if action == "INSERT":
         if len(list_ips) > 10000:
             print("The amount of IPs to be added in the IPSet is above the AWS Limit (10,000 IPs per IPSet)")
@@ -83,8 +83,8 @@ def format_response(raw_response):
         print("Response Code not expected (expected 200)- check your IP Address condition for confirmation")
     print("Change Token: {0}".format(raw_response['ChangeToken']))
 
-
-if __name__ == "__main__":
+def cli():
+#if __name__ == "__main__":
     new_ipset, ipset, global_regional, region, action, file = get_parameters()
 
     if global_regional == 2:
@@ -97,29 +97,8 @@ if __name__ == "__main__":
 
     list_ips = get_ips_from_file(file)
 
-    check_limits = check_limits(list_ips, action)
+    check_limits = limits_verifier(list_ips, action)
 
     if check_limits:
         response_update = update_ipset(list_ips, action, ipset_id)
         format_response(response_update)
-
-##############################
-##############################
-##############################
-
-
-#need to test if the return response is not breaking the exceptio and retry
-#add pip install
-
-#done
-#need to validate response and show if successful or not
-#region validator
-#check limits = check if waf supported in this region (not need, only specific regions informed)
-# Northern Virginia = us-east-1
-# Ohio = us-east-2
-# Oregon = us-west-2
-# Northern California = us-west-1
-# Ireland = eu-west-1
-# Frankfurt = eu-central-1
-# Tokyo = ap-northeast-1
-# Sydney = ap-southeast-2

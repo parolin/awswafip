@@ -39,6 +39,10 @@ def update_ipset(list_ip, action, ipset_id):
 
     for retries in range(API_CALL_NUM_RETRIES):
         try:
+            print(temp_dict)
+            print(list_ip)
+            print(action)
+            print(ipset_id)
             print("Updating IP Address Condition...")
             response_update = client.update_ip_set(
                 IPSetId=ipset_id,
