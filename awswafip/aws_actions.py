@@ -16,12 +16,19 @@ def define_client(waf_type, region):
 
 def create_ipset(new_ipset):
     change_token = get_change_token()
-    print("Creating the IPSet {0}".format(new_ipset))
-    response = client.create_ip_set(
-        Name=new_ipset,
-        ChangeToken=change_token
-    )
-    return response['IPSet']['IPSetId']
+    for retries in range(API_CALL_NUM_RETRIES):
+        try:
+            print("Creating the IPSet {0}".format(new_ipset))
+            response = client.create_ip_set(
+                Name=new_ipset,
+                ChangeToken=change_token
+            )
+            return response['IPSet']['IPSetId']
+        except Exception as e:
+            print(e)
+            exp_backoff = math.pow(2, retries)
+            print("Retrying in {0} seconds ".format(exp_backoff))
+            time.sleep(exp_backoff)
 
 
 def update_ipset(list_ip, action, ipset_id):
@@ -39,10 +46,6 @@ def update_ipset(list_ip, action, ipset_id):
 
     for retries in range(API_CALL_NUM_RETRIES):
         try:
-            print(temp_dict)
-            print(list_ip)
-            print(action)
-            print(ipset_id)
             print("Updating IP Address Condition...")
             response_update = client.update_ip_set(
                 IPSetId=ipset_id,
