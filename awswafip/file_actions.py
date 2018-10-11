@@ -6,8 +6,10 @@ def get_ips_from_file(file_ip):
     try:
         with open(file_ip, "r") as file:
             for x in file:
-                x = x.rstrip()
-                list_ips.append(validate_ips(x))
+                empty_line = check_line_is_empty(x)
+                if not empty_line:
+                    x = x.rstrip()
+                    list_ips.append(validate_ips(x))
     except IOError as e:
         print("I/O error({0}): {1}".format(e.errno, e.strerror))
         exit(0)
@@ -15,8 +17,19 @@ def get_ips_from_file(file_ip):
         print("Unexpected error:", sys.exc_info()[0])
     return list_ips
 
+
+def check_line_is_empty(line):
+    
+    if line in ['\n', '\r\n']:
+        line_is_empty = True
+    else:
+        line_is_empty = False
+
+    return line_is_empty
+
 def validate_ips(ip):
     import ipaddress
+
     try:
         if ipaddress.ip_network(ip).prefixlen == 8 or ipaddress.ip_network(ip).prefixlen >= 16:
             return ip
