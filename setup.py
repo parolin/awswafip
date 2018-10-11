@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(name='awswafip',
-      version='0.1.1.3',
+      version='0.1.2.3',
       description='Insert/Delete IP Address from a file in IP Address Conditions in AWS WAF',
       url='https://github.com/parolin/awswafip',
       author='Matheus L Parolin',
