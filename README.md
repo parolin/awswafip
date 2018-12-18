@@ -3,19 +3,31 @@ Insert or Delete a list of IPv4 addresses in the AWS WAF.
 
 It makes use of python3 and boto3
 
-It is available in pypitest (the test environment for pip). To install it via pypitest you can follow the steps below. If python3 and boto3 already installed you can skip to step 4.
+It is available in through pip. To install it via pip you can follow the steps below. If python3 and boto3 already installed you can skip to step 3.
 
 1. Install python3 (if already installed you can skip this step)
 sudo yum install python36 -y
 
-2. Upgrade pip for python3 (if already upgrade or in a stable version, you can skip this step)
+2. Upgrade pip for python3 (if already upgrade or in a stable version, you can skip this step). It can be done via pip3
+pip3 install --upgrade pip3
+
+or loading it via python
 python3 -m pip install --upgrade pip;
 
-3. Upgrade the boto3 for python3 (this step is need only when using pypitest, as the test environment does not have the latest boto3 version. As soon as it is moved to pip it will not be necessary)
-python3 -m pip install --upgrade boto3;
+3. Install the awswafip 
+pip3 install awswafip
 
-4. Install the awswafip (if all
-python3 -m pip install -i https://testpypi.python.org/pypi awswafip;
+or 
+
+python3 -m pip install awswafip;
+
+
+Also, if you want, you can clone and run it from the clone directory:
+git clone https://github.com/parolin/awswafip.git; cd awswafip
+
+pip install -e .
+
+After installing
 
 To run just type: awswafip
 
