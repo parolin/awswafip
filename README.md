@@ -45,9 +45,9 @@ It will ask you the following information:
 
 * The file with IPs, need to have one IP per line, as in the example below:
 
-...10.10.10.10/32..
-...192.168.10.0/24..
-...192.168.1.128/25..
-...172.16.0.0/16..
-
-* CSV format is in progress
+   10.10.10.10/32  
+   192.168.10.0/24  
+   192.168.1.128/25  
+   172.16.0.0/16  
+   
+  * CSV format is in progress
