@@ -49,5 +49,5 @@ It will ask you the following information:
    192.168.10.0/24  
    192.168.1.128/25  
    172.16.0.0/16  
-   
-  * CSV format is in progress
+
+* CSV format is in progress
