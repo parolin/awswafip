@@ -1,50 +1,53 @@
-# UpdateIPs_AWS_WAF
+# AWS WAF IP
 Insert or Delete a list of IPv4 addresses in the AWS WAF.
 
-It makes use of python3 and boto3
+## Introduction
+It makes use of python3 and boto3.
 
-It is available in through pip. To install it via pip you can follow the steps below. If python3 and boto3 already installed you can skip to step 3.
+Python 2.x is not supported as the EOL (End of Life) was already confirmed: https://www.python.org/dev/peps/pep-0373/
 
-1. Install python3 (if already installed you can skip this step)
-sudo yum install python36 -y
+It take a file containing the IP addresses, and add it in an IPSet Condition in AWS WAF. The IPs need to be listed in CIDR notation and one per line.
 
-2. Upgrade pip for python3 (if already upgrade or in a stable version, you can skip this step). It can be done via pip3
-pip3 install --upgrade pip3
+At the moment it works in a wizard format, asking questions about your WAF and the file location that contains the IP.
 
-or loading it via python
-python3 -m pip install --upgrade pip;
+## System Pre-Requisites
 
-3. Install the awswafip 
-pip3 install awswafip
+1. Have python3 installed
+`sudo yum install python36 -y`
 
-or 
-
-python3 -m pip install awswafip;
+2. Have pip3 updated
+`pip3 install --upgrade pip3`
 
 
-Also, if you want, you can clone and run it from the clone directory:
-git clone https://github.com/parolin/awswafip.git; cd awswafip
+## Installation 
 
-pip install -e .
+`pip3 install awswafip`
 
-After installing
+### From source
+
+`git clone https://github.com/parolin/awswafip.git; cd awswafip`
+
+`pip install -e .`
+
+## Running awswafip
 
 To run just type: awswafip
 
 It will ask you the following information:
-If the IPSet already exist or if you want to create a new one.
-The name of IPSet. If it is a new IPSet, it will automatically create a new IPSet for you
-The location of the file that contain the IPs
-If you want to insert or delete the IPs from the IPSet
+* If the IPSet already exist or if you want to create a new one.
+* The name of IPSet. If it is a new IPSet, it will automatically create a new IPSet for you
+* The location of the file that contain the IPs
+* If you want to insert or delete the IPs from the IPSet
 
-At the moment, it only works with IPv4. IPv6 version is in progress.
 
-The file with IPs, need to have one IP per line, as in the example below:
+## Limitations and New features
+* At the moment, it only works with IPv4. IPv6 version is in progress.
 
-10.10.10.10/32
+* The file with IPs, need to have one IP per line, as in the example below:
 
-192.168.10.0/24
+   10.10.10.10/32  
+   192.168.10.0/24  
+   192.168.1.128/25  
+   172.16.0.0/16  
 
-192.168.1.128/25
-
-172.16.0.0/16
+* CSV format is in progress
